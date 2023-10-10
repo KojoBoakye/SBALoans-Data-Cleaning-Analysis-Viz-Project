@@ -1,3 +1,23 @@
-
-The imported unclean NAICE codes data
-<img></img>
+ -- script to select the interested columns in the NAICS table
+ 
+     SELECT *
+     into sba_desc_codes_sector
+      From (
+    SELECT 
+      [NAICS_Industry_Description],
+      Case
+       when [NAICS_Industry_Description] like '% – %' 
+       then SUBSTRING([NAICS_Industry_Description],8,2) end as lookup_codes,
+      Case 
+       when [NAICS_Industry_Description] like '% – %' 
+       then LTRIM( SUBSTRING([NAICS_Industry_Description],(CHARINDEX('–',[NAICS_Industry_Description])+1),LEN([NAICS_Industry_Description])))
+       
+       when [NAICS_Industry_Description] like '(%' 
+       then ''
+       
+        end as sector
+     
+  FROM [SBA].[dbo].[NAICS]
+  WHERE[NAICS_Codes] is NULL
+  ) as main
+     WHERE lookup_codes !=''
