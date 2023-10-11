@@ -161,7 +161,7 @@ FROM temp
  order by Perecentage_of_loan_amount desc
 
  
- --   Question 3:how much of the total loan amount has been forgiven by the SBA?
+ --   Question 4:how much of the total loan amount has been forgiven by the SBA?
 
 
  SELECT 
@@ -198,7 +198,7 @@ concat(round (SUM(ForgivenessAmount)/SUM(CurrentApprovalAmount) * 100 , 2) , '%'
   FROM [SBA].[dbo].[public_150k_plus_230930]
 
 
- --   Question 4:year,month where highest loans were agreed?
+ --   Question 5:year,month where highest loans were agreed?
 
  SELECT top 10
 year(DateApproved) as Year_Approved,
@@ -208,6 +208,6 @@ SUM(InitialApprovalAmount) as Total_Amount_of_Loans,
 round(AVG(InitialApprovalAmount),2) as average_amount_of_loan
   FROM [SBA].[dbo].[public_150k_plus_230930]
  GROUP by  year(DateApproved),MONTH(DateApproved)
- ORDER by Total_Amount_of_Loans DESC
+ ORDER by Total_Number_of_loans DESC
 
  
